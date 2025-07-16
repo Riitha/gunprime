@@ -9,12 +9,12 @@ export default function HomePage() {
     async function handleLogout() {
         try {
             signOut(auth);
-            navigate("/login")
+            navigate("/auth/login")
         } catch (error) {
             console.log(error)
         }
     }
-
+    
     return (
         <>
         <h1>---Home side---</h1>
