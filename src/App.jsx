@@ -1,5 +1,5 @@
 // import { useState } from 'react'
-import './App.css'
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     element: <AdminLayout/>,
     children: [
       {
-        path: "/login",
+        path: "login",
         element: <LoginPage/>,
       },
       {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../configs/firebase";
 import { useNavigate } from "react-router";
+import { auth } from "../config/firebase";
 export default function RegisterPage() {
     //useState
     const [email, setEmail] = useState("");
