@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
+import HeroMain from "../components/Hero";
 
 export default function LoginPage() {
     //useState
@@ -21,20 +22,23 @@ export default function LoginPage() {
 
     return (
         <>
+            <HeroMain/>
             <h1>---login---</h1>
             <form onSubmit={handleLogin}>
-            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-                <legend className="fieldset-legend">ログイン</legend>
+                <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+                    <legend className="fieldset-legend">ログイン</legend>
 
-                <label className="label">メール</label>
-                <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" className="input" placeholder="Email" />
+                    <label className="label">メール</label>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="input" placeholder="Email" />
 
-                <label className="label">パスワード</label>
-                <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" className="input" placeholder="Password" />
+                    <label className="label">パスワード</label>
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="input" placeholder="Password" />
 
-                <button type="submit" className="btn btn-neutral mt-4">ログイン</button>
-            </fieldset>
+                    <button type="submit" className="btn btn-neutral mt-4">ログイン</button>
+                </fieldset>
             </form>
+            
+
         </>
     )
 }
