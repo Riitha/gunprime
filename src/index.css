@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=WDXL+Lubrifont+JP+N&family=Zen+Maru+Gothic&display=swap');
+
+
 @import "tailwindcss";
 @plugin "daisyui";
 
@@ -6,6 +9,10 @@
   --color-blue-chill: oklch(0.5658 0.1113 230.53);
   --color-desert-storm: oklch(0.9428 0.0013 106.43);
   --color-ebony-clay: oklch(0.2982 0.0533 273.86);
-  --color-sunblow:oklch(0.87 0.1695 90.25);
-  --color-cello:oklch(0.3334 0.0877 266.28);
+  --color-sunblow: oklch(0.87 0.1695 90.25);
+  --color-cello: oklch(0.3334 0.0877 266.28);
+  --color-cinnabar: oklch(0.6379 0.1846 38.49);
+
+  --font-lubri: "WDXL Lubrifont JP N", sans-serif;
+  --font-zenMaru: "Zen Maru Gothic", sans-serif
 }

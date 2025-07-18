@@ -1,27 +1,21 @@
-import title from '../assets/namaWeb.png';
-// import gunpla from '../assets/gunpla1.png';
-
 export default function HeroMain() {
-    const gazou = 'https://newsatcl-pctr.c.yimg.jp/dk/expert-image/yojizuhobirumuyojiho/article/00551468/top_1691960611691.jpeg?exp=10800&fmt=webp';
     return (
-        <section className='w-full h-[700px] bg-[url(./assets/bgHero.png)] bg-cover bg-center flex flex-col md:flex-row'>
+        <>
+            <div className="px-4 sm:px-6 lg:px-8 ">
+                <div className="h-120 md:h-[80dvh] flex flex-col bg-[url('./assets/bgHero.png')] bg-cover bg-center bg-no-repeat rounded-2xl">
+                    <div className="mt-auto w-2/3 md:max-w-lg ps-5 pb-5 md:ps-10 md:pb-10">
+                        <h1 className="font-['Zen_Maru_Gothic'] text-xl text-desert-storm text-shadow-lg md:text-3xl lg:text-4xl ">
+                            <span className="font-['WDXL_Lubrifont_JP_N'] bg-cinnabar text-sunblow text-xl md:text-4xl lg:text-6xl">ガンプラ</span>
+                            <span className="font-['WDXL_Lubrifont_JP_N'] bg-cello text-desert-storm text-xl md:text-4xl lg:text-6xl">イム</span>
 
-            <div className='flex-1 flex flex-col justify-center items-start p-8 text-left'>
-                <img src={title} alt="gunpla logo" className="w-[360px] mx-auto" />
-                <div className="text-4xl mb-4 text-slate-800 mx-auto">
-                    <p className="text-red-500 font-semibold text-center">
-                        ガンプラと<span className="text-yellow-500 text-center">想い</span>を紡ぎ
-                    </p>
-                    <p>
-                        掛け替えの無い<span className="text-yellow-500 text-center">思い出</span>築こう
-                    </p>
+                            <br />
+
+                            <span className="block mt-2 text-shadow-xs text-shadow-black text-desert-storm">ガンプラと未来を築こう</span>
+                        </h1>
+                    </div>
                 </div>
             </div>
+        </>
 
-            <div className="w-full flex-1 flex justify-center items-center">
-                <img src={gazou} alt="gunpla" className="w-80% " />
-            </div>
-
-        </section>
     )
 }
