@@ -8,7 +8,7 @@ import HomePage from './pages/HomePage';
 import AdminLayout from './layouts/AdminLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import AuthContextProvider from "./context/AuthContext";
+import AuthContextProvider from "./context/AuthContextProvider";
 
 //router
 const router = createBrowserRouter([

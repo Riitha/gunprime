@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import HeroMain from "../components/Hero";
 import { AuthContext } from "../context/AuthContext";
 
+
 export default function MainLayout() {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
