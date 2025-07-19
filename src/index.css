@@ -12,6 +12,13 @@
   --color-sunblow: oklch(0.87 0.1695 90.25);
   --color-cello: oklch(0.3334 0.0877 266.28);
   --color-cinnabar: oklch(0.6379 0.1846 38.49);
+  --color-ship: oklch(0.657 0.0606 252.72);
+  --color-oyster: oklch(0.9671 0.0289 210.04);
+  --color-aquaDeep: oklch(0.3785 0.066 187.34);
+  --color-turquoise: oklch(0.8747 0.1401 188.13);
+  --color-malibu: oklch(0.6858 0.1613 264.85);
+  --color-midnight-blue: oklch(0.2757 0.1281 262.07);
+  --color-firefly:oklch(0.2226 0.032 228.72);
 
   --font-lubri: "WDXL Lubrifont JP N", sans-serif;
   --font-zenMaru: "Zen Maru Gothic", sans-serif
