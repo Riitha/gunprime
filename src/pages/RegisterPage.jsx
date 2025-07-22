@@ -6,6 +6,7 @@ import gunpla from "../assets/gunplaRegister.png";
 import pilot from "../assets/pilotRegister.png";
 import halo from "../assets/haro.png";
 import { Link } from "react-router";
+import ButtonGoogleLogin from "../components/ButtonOauthGoogle";
 
 export default function RegisterPage() {
     //useState
@@ -53,6 +54,10 @@ export default function RegisterPage() {
                                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input binput bg-white/30 mx-auto input bg-white/30 mx-auto text-black/80 placeholder-cello" placeholder="Password" />
 
                                 <button type="submit" className="btn btn-accent mx-auto">登録</button>
+                                <p className="text-center text-cello font-['WDXL_Lubrifont_JP_N'] text-sm md:text-lg">または</p>
+                                <div className="flex items-center justify-center">
+                                    <ButtonGoogleLogin />
+                                </div>
                             </fieldset>
                         </form>
                         <p className="text-sm text-gray-600 mt-4">

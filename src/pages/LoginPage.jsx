@@ -56,7 +56,8 @@ export default function LoginPage() {
 
                                 <button type="submit" className="btn btn-accent mx-auto">ログイン</button>
                                 <p className="text-center text-cello font-['WDXL_Lubrifont_JP_N'] text-sm md:text-lg">または</p>
-                                <div className="flex items-center justify-center"><ButtonGoogleLogin/></div>
+                                <div className="flex items-center justify-center"><ButtonGoogleLogin/>
+                                </div>
                             </fieldset>
                         </form>
                         <p className="text-sm text-gray-600 mt-4">
