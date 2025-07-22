@@ -7,6 +7,7 @@ import pilot from "../assets/pilotRegister.png";
 import halo from "../assets/haro.png";
 import { Link } from "react-router";
 import ButtonGoogleLogin from "../components/ButtonOauthGoogle";
+import Swal from 'sweetalert2'
 
 export default function RegisterPage() {
     //useState
@@ -17,12 +18,21 @@ export default function RegisterPage() {
 
     async function handleRegister(e) {
         e.preventDefault();
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            navigate("/")
-        } catch (error) {
-            console.log(error)
+        if (!email || !password) {
+            Swal.fire("項目を全部入力してください！");
+        } else {
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                navigate("/")
+            } catch {
+                Swal.fire({
+                    icon: "error",
+                    title: "エラー発生",
+                    text: "登録失敗、入力情報またご確認してください",
+                });
+            }
         }
+
     }
     return (
         <>

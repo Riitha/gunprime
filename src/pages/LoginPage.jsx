@@ -7,6 +7,7 @@ import loginPilot from "../assets/pilotLogin.png";
 import halo from "../assets/haro.png";
 import { Link } from "react-router";
 import ButtonGoogleLogin from "../components/ButtonOauthGoogle";
+import Swal from 'sweetalert2'
 
 export default function LoginPage() {
     //useState
@@ -16,11 +17,19 @@ export default function LoginPage() {
 
     async function handleLogin(e) {
         e.preventDefault();
-        try {
-            await signInWithEmailAndPassword(auth, email, password)
-            navigate("/")
-        } catch (error) {
-            console.log(error)
+        if (!email || !password) {
+            Swal.fire("項目を全部入力してください！");
+        } else {
+            try {
+                await signInWithEmailAndPassword(auth, email, password)
+                navigate("/")
+            } catch {
+                Swal.fire({
+                    icon: "error",
+                    title: "エラー発生",
+                    text: "ログイン失敗、入力情報をご確認",
+                });
+            }
         }
     }
 
@@ -56,7 +65,7 @@ export default function LoginPage() {
 
                                 <button type="submit" className="btn btn-accent mx-auto">ログイン</button>
                                 <p className="text-center text-cello font-['WDXL_Lubrifont_JP_N'] text-sm md:text-lg">または</p>
-                                <div className="flex items-center justify-center"><ButtonGoogleLogin/>
+                                <div className="flex items-center justify-center"><ButtonGoogleLogin />
                                 </div>
                             </fieldset>
                         </form>
