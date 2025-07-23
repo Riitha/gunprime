@@ -19,7 +19,10 @@
   --color-malibu: oklch(0.6858 0.1613 264.85);
   --color-midnight-blue: oklch(0.2757 0.1281 262.07);
   --color-firefly:oklch(0.2226 0.032 228.72);
-
+  --color-Heliotrope:oklch(0.6086 0.2256 296.06);
+  --color-flower-blue:oklch(0.6779 0.1417 259.53);
+  --color-governor:oklch(0.4258 0.1815 286.94);
+  
   --font-lubri: "WDXL Lubrifont JP N", sans-serif;
   --font-zenMaru: "Zen Maru Gothic", sans-serif
 }

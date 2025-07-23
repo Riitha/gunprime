@@ -1,11 +1,16 @@
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import Swal from 'sweetalert2'
+import { collection, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import GunplaCard from "../components/HomeCard";
+
+
 
 export default function HomePage() {
     const navigate = useNavigate();
-
+    const [gunpla, setGunpla] = useState([]);
     async function handleLogout() {
         try {
             signOut(auth);
@@ -23,10 +28,30 @@ export default function HomePage() {
         }
     }
 
+    useEffect(() => {
+        async function getGunpla() {
+            const querySnapshot = await getDocs(collection(db, "gunpla"));
+            const result = querySnapshot.docs.map((doc) => {
+                return {
+                    id: doc.id,
+                    ...doc.data(),
+                };
+            });
+            setGunpla(result)
+        }
+        getGunpla();
+
+    }, [])
     return (
         <>
-            <h1>---Home side---</h1>
-            <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
+            <div className="h-min-screen w-full">
+                <h1>---Home side---</h1>
+                <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
+                {gunpla?.map((gunpla) => (
+                    <GunplaCard key={gunpla.id} gunpla={gunpla} />
+                ))}
+            </div>
+
         </>
     );
 }
