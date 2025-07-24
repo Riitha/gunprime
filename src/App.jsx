@@ -9,31 +9,41 @@ import AdminLayout from './layouts/AdminLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AuthContextProvider from "./context/AuthContextProvider";
+import AddThreadPage from "./pages/AddThreads";
+import EditThread from "./pages/EditThreadPage";
 
 //router
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout/>,
+    element: <MainLayout />,
     children: [
       {
         index: true,
-        element: <HomePage/>
+        element: <HomePage />
+      },
+      {
+        path: "threads/add",
+        element: <AddThreadPage />
+      },
+      {
+        path:"threads/edit/:id",
+        element: <EditThread/>
       }
     ]
   },
 
   {
     path: "/auth",
-    element: <AdminLayout/>,
+    element: <AdminLayout />,
     children: [
       {
         path: "login",
-        element: <LoginPage/>,
+        element: <LoginPage />,
       },
       {
         path: "register",
-        element: <RegisterPage/>
+        element: <RegisterPage />
       },
     ],
   },
@@ -45,7 +55,7 @@ function App() {
     <AuthContextProvider>
       <RouterProvider router={router} />
     </AuthContextProvider>
-    
+
   )
 }
 
