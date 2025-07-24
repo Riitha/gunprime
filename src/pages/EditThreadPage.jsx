@@ -118,7 +118,7 @@ export default function EditThread() {
                                 value={grade}
                                 onChange={(e) => setGrade(e.target.value)}
                             >
-                                <option selected="">グレード選択</option>
+                                <option value="" disabled={true}>グレード選択</option>
                                 <option value="SD">SD</option>
                                 <option value="HG">HG</option>
                                 <option value="MG">MG</option>
@@ -138,7 +138,7 @@ export default function EditThread() {
                                 value={scale}
                                 onChange={(e) => setScale(e.target.value)}
                             >
-                                <option selected="">スケール選択</option>
+                                <option value="" disabled={true}>スケール選択</option>
                                 <option value="non-scale">non-scale</option>
                                 <option value="1/144">1/144</option>
                                 <option value="1/100">1/100</option>

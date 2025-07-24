@@ -94,7 +94,7 @@ export default function AddThreadPage() {
                                 value={grade}
                                 onChange={(e) => setGrade(e.target.value)}
                             >
-                                <option selected="">グレード選択</option>
+                                <option value="" disabled={true}>グレード選択</option>
                                 <option value="SD">SD</option>
                                 <option value="HG">HG</option>
                                 <option value="MG">MG</option>
@@ -114,7 +114,7 @@ export default function AddThreadPage() {
                                 value={scale}
                                 onChange={(e) => setScale(e.target.value)}
                             >
-                                <option selected="">スケール選択</option>
+                                <option value="" disabled={true}>スケール選択</option>
                                 <option value="non-scale">non-scale</option>
                                 <option value="1/144">1/144</option>
                                 <option value="1/100">1/100</option>
@@ -172,7 +172,6 @@ export default function AddThreadPage() {
                                 rows={8}
                                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="組み立て感想や詳細をお書きください"
-                                defaultValue={""}
                                 value={longDesc}
                                 onChange={(e) => setLongDesc(e.target.value)}
                             />

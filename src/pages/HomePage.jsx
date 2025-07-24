@@ -66,10 +66,10 @@ export default function HomePage() {
                 <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
                 <button onClick={() => navigate('/threads/add')}>Add product</button>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 place-items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
 
                     {gunpla?.map((g) => (
-                        <div key={g.id} className="w-full h-auto my-2 lg:max-w-[300px] lg:h-auto lg:my-4 rounded-xl bg-gradient-to-br from-Heliotrope to-flower-blue text-white p-2 flex flex-col">
+                        <div key={g.id} className="w-full min-h-[600px] rounded-xl bg-gradient-to-br from-Heliotrope to-flower-blue text-white p-2 flex flex-col justify-between">
 
                             <img src={g.imageUrl} alt={g.name} className="w-full h-auto lg:h-auto lg:w-auto object-cover rounded-md" />
 
@@ -82,32 +82,34 @@ export default function HomePage() {
                                     <span className="badge badge-secondary mt-2 text-[10px] ml-auto mr-2">{g.grade}</span>
                                 </div>
 
-                                <p className="text-md lg:text-xs line-clamp-3 overflow-hidden mt-1">
-                                    {g.shortDesc}
-                                </p>
-                                <div className="flex flex-row gap-2">
-                                    <button onClick={() => {
-                                        Swal.fire({
-                                            title: "削除しますか",
-                                            showDenyButton: true,
-                                            showCancelButton: true,
-                                            confirmButtonText: "はい",
-                                            denyButtonText: `いいえ`
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                Swal.fire("削除", "", "完了");
-                                                deleteThread(g.id)
-                                            } else if (result.isDenied) {
-                                                Swal.fire("キャンセル", "", "info");
-                                            }
-                                        });
-                                    }}
-                                        className="text-xs px-4 py-2 lg:text-sm lg:px-3 lg:py-1 bg-governor text-white rounded-md  w-fit mt-auto">
-                                        削除
-                                    </button>
-                                    <button onClick={()=>navigate(`/threads/edit/${g.id}`)} className="text-xs px-4 py-2 lg:text-sm lg:px-3 lg:py-1 bg-pink-600 text-white rounded-md  w-fit mt-2">
-                                        編集
-                                    </button>
+                                <div className="flex flex-col justify-between flex-1">
+                                    <p className="text-md lg:text-xs line-clamp-3 overflow-hidden mt-1 min-h-[72px]">
+                                        {g.shortDesc}
+                                    </p>
+                                    <div className="flex flex-row gap-2 mt-2">
+                                        <button onClick={() => {
+                                            Swal.fire({
+                                                title: "削除しますか",
+                                                showDenyButton: true,
+                                                showCancelButton: true,
+                                                confirmButtonText: "はい",
+                                                denyButtonText: `いいえ`
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    Swal.fire("削除", "", "完了");
+                                                    deleteThread(g.id)
+                                                } else if (result.isDenied) {
+                                                    Swal.fire("キャンセル", "", "info");
+                                                }
+                                            });
+                                        }}
+                                            className="text-xs px-4 py-2 lg:text-sm lg:px-3 lg:py-1 bg-governor text-white rounded-md  w-fit mt-auto">
+                                            削除
+                                        </button>
+                                        <button onClick={() => navigate(`/threads/edit/${g.id}`)} className="text-xs px-4 py-2 lg:text-sm lg:px-3 lg:py-1 bg-pink-600 text-white rounded-md  w-fit mt-2">
+                                            編集
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
