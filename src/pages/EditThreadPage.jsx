@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import Swal from 'sweetalert2'
 import { editGunplaById, gunplaById } from "../redux/features/gunpla/gunplaSlice";
+import UploadWidget from "../components/UploadWidget";
 
 export default function EditThread() {
     const {gunpla} = useSelector((state) => state.gunpla);
@@ -154,6 +155,7 @@ export default function EditThread() {
                             >
                                 画像リンク
                             </label>
+                            <div className="flex items-center gap-2">
                             <input
                                 type="text"
                                 name="imgUrl"
@@ -164,6 +166,8 @@ export default function EditThread() {
                                 value={imgUrl}
                                 onChange={(e) => setImgUrl(e.target.value)}
                             />
+                            <UploadWidget setImgUrl={setImgUrl}/>
+                            </div>
                         </div>
 
                         <div className="sm:col-span-2">
@@ -183,13 +187,15 @@ export default function EditThread() {
                             />
                         </div>
                     </div>
+                    <div className="flex items-center gap-2 my-4">
                     <button
                         type="submit"
-                        className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+                        className="btn btn-primary"
                     >
                         確認
                     </button>
-                    <button type="button" onClick={()=> navigate('/')} className="btn btn-secondary">戻る</button>
+                    <button type="button" onClick={() => navigate('/')} className="btn btn-secondary">戻る</button>
+                    </div>
                 </form>
             </div>
         </section>

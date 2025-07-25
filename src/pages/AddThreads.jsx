@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import Swal from 'sweetalert2'
 import { useDispatch } from "react-redux";
 import { addGunpla } from "../redux/features/gunpla/gunplaSlice";
+import UploadWidget from "../components/UploadWidget";
 
 export default function AddThreadPage() {
     const [name, setName] = useState("");
@@ -143,16 +144,20 @@ export default function AddThreadPage() {
                             >
                                 画像リンク
                             </label>
-                            <input
-                                type="text"
-                                name="imgUrl"
-                                id="url"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="画像のリンクを貼ってください"
-                                required=""
-                                value={imgUrl}
-                                onChange={(e) => setImgUrl(e.target.value)}
-                            />
+                            <div className="flex items-center gap-2">
+                                <input
+                                    type="text"
+                                    name="imgUrl"
+                                    id="url"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="画像のリンクを貼ってください"
+                                    required=""
+                                    value={imgUrl}
+                                    onChange={(e) => setImgUrl(e.target.value)}
+                                />
+                                <UploadWidget setImgUrl={setImgUrl} />
+                            </div>
+
                         </div>
 
                         <div className="sm:col-span-2">
@@ -172,12 +177,15 @@ export default function AddThreadPage() {
                             />
                         </div>
                     </div>
+                    <div className="flex items-center gap-2 my-4">
                     <button
                         type="submit"
-                        className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+                        className="btn btn-primary"
                     >
                         確認
                     </button>
+                    <button type="button" onClick={() => navigate('/')} className="btn btn-secondary">戻る</button>
+                    </div>
                 </form>
             </div>
         </section>
