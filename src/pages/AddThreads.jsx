@@ -1,8 +1,8 @@
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from 'sweetalert2'
+import { useDispatch } from "react-redux";
+import { addGunpla } from "../redux/features/gunpla/gunplaSlice";
 
 export default function AddThreadPage() {
     const [name, setName] = useState("");
@@ -11,7 +11,8 @@ export default function AddThreadPage() {
     const [longDesc, setLongDesc] = useState("");
     const [scale, setScale] = useState("");
     const [grade, setGrade] = useState("");
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const successMessage = () =>
         Swal.fire({
             position: "top-end",
@@ -29,30 +30,24 @@ export default function AddThreadPage() {
             footer: '<a href="#">Why do I have this issue?</a>'
         });
 
-    const navigate = useNavigate();
-
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const docRef = await addDoc(collection(db, "gunpla"), {
-                name: name,
-                grade: grade,
-                imageUrl: imgUrl,
-                scales: scale,
-                shortDesc: shortDesc,
-                longDesc: longDesc
-            });
-            console.log(docRef)
+            const item = {
+                name,
+                imgUrl,
+                grade,
+                scale,
+                shortDesc,
+                longDesc,
+            };
+            dispatch(addGunpla(item));
             successMessage();
             navigate('/')
         } catch {
             errorMessage();
         }
     }
-
-    useEffect(() => {
-
-    }, [])
 
     return (
         <section className="bg-white dark:bg-gray-900">

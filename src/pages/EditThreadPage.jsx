@@ -1,16 +1,20 @@
-import { updateDoc, doc, getDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import Swal from 'sweetalert2'
+import { editGunplaById, gunplaById } from "../redux/features/gunpla/gunplaSlice";
 
 export default function EditThread() {
+    const {gunpla} = useSelector((state) => state.gunpla);
     const [name, setName] = useState("");
     const [imgUrl, setImgUrl] = useState("");
     const [shortDesc, setShortDesc] = useState("");
     const [longDesc, setLongDesc] = useState("");
     const [scale, setScale] = useState("");
     const [grade, setGrade] = useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { id } = useParams();
 
     const successMessage = () =>
         Swal.fire({
@@ -28,55 +32,33 @@ export default function EditThread() {
             text: "Something went wrong!",
         });
 
-    const navigate = useNavigate();
-    const { id } = useParams();
+
 
     async function editGunpla(e) {
         e.preventDefault();
-        try {
-            const docRef = doc(db, 'gunpla', id);
-            await updateDoc(docRef, {
-                name: name,
-                grade: grade,
-                scale: scale,
-                imageUrl: imgUrl,
-                shortDesc: shortDesc,
-                longDesc: longDesc,
-            });
-
-            successMessage();
+        try{
+            dispatch(editGunplaById({id, name, scale, grade, imgUrl, shortDesc, longDesc}));
+            successMessage()
             navigate('/')
         } catch {
-            errorMessage();
+            errorMessage()
         }
     }
 
-    useEffect(() => {
-        async function getGunplaById(idGunpla) {
-            try {
-                const docRef = doc(db, 'gunpla', idGunpla);
-                const docSnap = await getDoc(docRef);
+    useEffect(()=> {
+        dispatch(gunplaById(id));
+    }, [dispatch, id]);
 
-                if (docSnap.exists()) {
-                    setName(docSnap.data().name);
-                    setGrade(docSnap.data().grade);
-                    setScale(docSnap.data().scale);
-                    setImgUrl(docSnap.data().imageUrl);
-                    setShortDesc(docSnap.data().shortDesc);
-                    setLongDesc(docSnap.data().longDesc);
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "エラー発生",
-                        text: "ガンプラが見つかりません",
-                    });
-                }
-            } catch (error) {
-                console.log(error)
-            }
+    useEffect(()=> {
+        if(gunpla) {
+            setName(gunpla.name)
+            setImgUrl(gunpla.imageUrl);
+            setGrade(gunpla.grade);
+            setScale(gunpla.scale);
+            setShortDesc(gunpla.shortDesc);
+            setLongDesc(gunpla.longDesc);
         }
-        getGunplaById(id)
-    }, [id])
+    }, [gunpla])
 
     return (
         <section className="bg-white dark:bg-gray-900">

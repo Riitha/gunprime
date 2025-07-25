@@ -1,16 +1,17 @@
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
-import { auth, db } from "../config/firebase";
+import { auth } from "../config/firebase";
 import Swal from 'sweetalert2'
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-// import GunplaCard from "../components/HomeCard";
-
-
+// import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteGunpla, fetchGunpla } from "../redux/features/gunpla/gunplaSlice";
 
 export default function HomePage() {
+    const { gunplas, loading, error } = useSelector((state) => state.gunpla);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [gunpla, setGunpla] = useState([]);
+
     async function handleLogout() {
         try {
             signOut(auth);
@@ -18,7 +19,7 @@ export default function HomePage() {
         } catch {
             Swal.fire({
                 title: "Sweet!",
-                text: "ログイン失敗、一度ログインしてください",
+                text: "ログアウト失敗",
                 imageUrl: "https://stat.ameba.jp/user_images/23/db/10085716020.jpg",
                 imageWidth: 400,
                 imageHeight: 200,
@@ -27,37 +28,22 @@ export default function HomePage() {
             navigate("/")
         }
     }
-    async function getGunpla() {
-        const querySnapshot = await getDocs(collection(db, "gunpla"));
-        const result = querySnapshot.docs.map((doc) => {
-            return {
-                id: doc.id,
-                ...doc.data(),
-            };
-        });
-        setGunpla(result)
-    }
+
     async function deleteThread(id) {
-        try {
-            await deleteDoc(doc(db, "gunpla", id));
-            Swal.fire({
-                title: "削除しますか",
-                icon: "success",
-                draggable: true
-            });
-            await getGunpla();
-        } catch {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-            });
-        }
+        dispatch(deleteGunpla(id));
     }
 
     useEffect(() => {
-        getGunpla();
-    }, [])
+        if (error) {
+            Swal.fire({
+                icon: "error",
+                title: "エラー発生",
+                text: "読み込み失敗",
+            });
+        } else {
+            dispatch(fetchGunpla());
+        }
+    }, [dispatch, error])
 
     return (
         <>
@@ -68,7 +54,9 @@ export default function HomePage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
 
-                    {gunpla?.map((g) => (
+                    {loading && <div>読み込み...</div>}
+                    {gunplas.length > 0 &&
+                    gunplas?.map((g) => (
                         <div key={g.id} className="w-full min-h-[600px] rounded-xl bg-gradient-to-br from-Heliotrope to-flower-blue text-white p-2 flex flex-col justify-between">
 
                             <img src={g.imageUrl} alt={g.name} className="w-full h-auto lg:h-auto lg:w-auto object-cover rounded-md" />
@@ -113,7 +101,9 @@ export default function HomePage() {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    ))
+                    }
+                    
                 </div>
 
             </div>

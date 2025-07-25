@@ -11,6 +11,8 @@ import RegisterPage from './pages/RegisterPage';
 import AuthContextProvider from "./context/AuthContextProvider";
 import AddThreadPage from "./pages/AddThreads";
 import EditThread from "./pages/EditThreadPage";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 //router
 const router = createBrowserRouter([
@@ -53,7 +55,9 @@ function App() {
 
   return (
     <AuthContextProvider>
+      <Provider store={store}>
       <RouterProvider router={router} />
+      </Provider>
     </AuthContextProvider>
 
   )
