@@ -4,6 +4,8 @@ import Swal from 'sweetalert2'
 import { useDispatch } from "react-redux";
 import { addGunpla } from "../redux/features/gunpla/gunplaSlice";
 import UploadWidget from "../components/UploadWidget";
+import JoditEditor from "jodit-react";
+import { useRef } from "react";
 
 export default function AddThreadPage() {
     const [name, setName] = useState("");
@@ -30,7 +32,7 @@ export default function AddThreadPage() {
             text: "Something went wrong!",
             footer: '<a href="#">Why do I have this issue?</a>'
         });
-
+    const editor = useRef(null);
     async function handleSubmit(e) {
         e.preventDefault();
         try {
@@ -132,6 +134,7 @@ export default function AddThreadPage() {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="簡単な紹介文をお書き下さい"
                                 required=""
+                                disabled
                                 value={shortDesc}
                                 onChange={(e) => setShortDesc(e.target.value)}
                             />
@@ -149,9 +152,10 @@ export default function AddThreadPage() {
                                     type="text"
                                     name="imgUrl"
                                     id="url"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="画像のリンクを貼ってください"
                                     required=""
+                                    disabled
                                     value={imgUrl}
                                     onChange={(e) => setImgUrl(e.target.value)}
                                 />
@@ -165,18 +169,17 @@ export default function AddThreadPage() {
                                 htmlFor="longDesc"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                                Description
+                                感想文・説明文
                             </label>
-                            <textarea
-                                id="description"
-                                rows={8}
-                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="組み立て感想や詳細をお書きください"
-                                value={longDesc}
-                                onChange={(e) => setLongDesc(e.target.value)}
+                            <JoditEditor
+                            ref={editor}
+                            value={longDesc}
+                            onChange={(newContent) => setLongDesc(newContent)}
+                            className="text-black"
                             />
                         </div>
                     </div>
+
                     <div className="flex items-center gap-2 my-4">
                     <button
                         type="submit"

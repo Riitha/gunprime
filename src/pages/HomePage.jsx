@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteGunpla, fetchGunpla } from "../redux/features/gunpla/gunplaSlice";
+import { Link } from "react-router";
 
 export default function HomePage() {
     const { gunplas, loading, error } = useSelector((state) => state.gunpla);
@@ -53,14 +54,14 @@ export default function HomePage() {
                 <button onClick={() => navigate('/threads/add')}>Add product</button>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
-
                     {loading && <div>読み込み...</div>}
                     {gunplas.length > 0 &&
                     gunplas?.map((g) => (
+                        
                         <div key={g.id} className="w-full min-h-[600px] rounded-xl bg-gradient-to-br from-Heliotrope to-flower-blue text-white p-2 flex flex-col justify-between">
-
+                            <Link to={`/threads/detail/${g.id}`}>
                             <img src={g.imageUrl} alt={g.name} className="w-full h-auto lg:h-auto lg:w-auto object-cover rounded-md" />
-
+                            </Link> 
                             <div className="flex-1 flex flex-col space-y-2 lg:space-y-1">
 
                                 <div className="flex flex-row items-center w-full">
@@ -74,6 +75,7 @@ export default function HomePage() {
                                     <p className="text-md lg:text-xs line-clamp-3 overflow-hidden mt-1 min-h-[72px]">
                                         {g.shortDesc}
                                     </p>
+                                   
                                     <div className="flex flex-row gap-2 mt-2">
                                         <button onClick={() => {
                                             Swal.fire({

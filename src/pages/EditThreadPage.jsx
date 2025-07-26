@@ -4,9 +4,11 @@ import { useNavigate, useParams } from "react-router";
 import Swal from 'sweetalert2'
 import { editGunplaById, gunplaById } from "../redux/features/gunpla/gunplaSlice";
 import UploadWidget from "../components/UploadWidget";
+import JoditEditor from "jodit-react";
+import { useRef } from "react";
 
 export default function EditThread() {
-    const {gunpla} = useSelector((state) => state.gunpla);
+    const { gunpla } = useSelector((state) => state.gunpla);
     const [name, setName] = useState("");
     const [imgUrl, setImgUrl] = useState("");
     const [shortDesc, setShortDesc] = useState("");
@@ -16,7 +18,7 @@ export default function EditThread() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-
+    const editor = useRef(null);
     const successMessage = () =>
         Swal.fire({
             position: "top-end",
@@ -37,8 +39,8 @@ export default function EditThread() {
 
     async function editGunpla(e) {
         e.preventDefault();
-        try{
-            dispatch(editGunplaById({id, name, scale, grade, imgUrl, shortDesc, longDesc}));
+        try {
+            dispatch(editGunplaById({ id, name, scale, grade, imgUrl, shortDesc, longDesc }));
             successMessage()
             navigate('/')
         } catch {
@@ -46,12 +48,12 @@ export default function EditThread() {
         }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(gunplaById(id));
     }, [dispatch, id]);
 
-    useEffect(()=> {
-        if(gunpla) {
+    useEffect(() => {
+        if (gunpla) {
             setName(gunpla.name)
             setImgUrl(gunpla.imageUrl);
             setGrade(gunpla.grade);
@@ -156,17 +158,18 @@ export default function EditThread() {
                                 画像リンク
                             </label>
                             <div className="flex items-center gap-2">
-                            <input
-                                type="text"
-                                name="imgUrl"
-                                id="url"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="画像のリンクを貼ってください"
-                                required=""
-                                value={imgUrl}
-                                onChange={(e) => setImgUrl(e.target.value)}
-                            />
-                            <UploadWidget setImgUrl={setImgUrl}/>
+                                <input
+                                    type="text"
+                                    name="imgUrl"
+                                    id="url"
+                                    className="input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="画像のリンクを貼ってください"
+                                    required=""
+                                    disabled
+                                    value={imgUrl}
+                                    onChange={(e) => setImgUrl(e.target.value)}
+                                />
+                                <UploadWidget setImgUrl={setImgUrl} />
                             </div>
                         </div>
 
@@ -175,26 +178,25 @@ export default function EditThread() {
                                 htmlFor="longDesc"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                                Description
+                                感想文・説明文
                             </label>
-                            <textarea
-                                id="description"
-                                rows={8}
-                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="組み立て感想や詳細をお書きください"
-                                value={longDesc}
-                                onChange={(e) => setLongDesc(e.target.value)}
+                            <JoditEditor
+                            ref={editor}
+                            value={longDesc}
+                            onChange={(newContent) => setLongDesc(newContent)}
+                            className="text-black"
                             />
                         </div>
                     </div>
+
                     <div className="flex items-center gap-2 my-4">
-                    <button
-                        type="submit"
-                        className="btn btn-primary"
-                    >
-                        確認
-                    </button>
-                    <button type="button" onClick={() => navigate('/')} className="btn btn-secondary">戻る</button>
+                        <button
+                            type="submit"
+                            className="btn btn-primary"
+                        >
+                            確認
+                        </button>
+                        <button type="button" onClick={() => navigate('/')} className="btn btn-secondary">戻る</button>
                     </div>
                 </form>
             </div>

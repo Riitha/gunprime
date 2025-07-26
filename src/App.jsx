@@ -13,6 +13,7 @@ import AddThreadPage from "./pages/AddThreads";
 import EditThread from "./pages/EditThreadPage";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import DetailThread from "./pages/DetailThread";
 
 //router
 const router = createBrowserRouter([
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path:"threads/edit/:id",
         element: <EditThread/>
+      },
+            {
+        path:"/threads/detail/:id",
+        element:<DetailThread/> 
       }
     ]
   },
