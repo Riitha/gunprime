@@ -1,8 +1,5 @@
-import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
-import { auth } from "../config/firebase";
 import Swal from 'sweetalert2'
-// import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteGunpla, fetchGunpla } from "../redux/features/gunpla/gunplaSlice";
@@ -12,23 +9,9 @@ export default function HomePage() {
     const { gunplas, loading, error } = useSelector((state) => state.gunpla);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    async function handleLogout() {
-        try {
-            signOut(auth);
-            navigate("/auth/login")
-        } catch {
-            Swal.fire({
-                title: "Sweet!",
-                text: "ログアウト失敗",
-                imageUrl: "https://stat.ameba.jp/user_images/23/db/10085716020.jpg",
-                imageWidth: 400,
-                imageHeight: 200,
-                imageAlt: "Custom image"
-            });
-            navigate("/")
-        }
-    }
+    const plusIcon = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
 
     async function deleteThread(id) {
         dispatch(deleteGunpla(id));
@@ -49,10 +32,9 @@ export default function HomePage() {
     return (
         <>
             <div className="h-min-screen w-full">
-                <h1>---Home side---</h1>
-                <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
-                <button onClick={() => navigate('/threads/add')}>Add product</button>
-
+                <div className="w-full">
+                <button className="btn btn btn-accent w-[30%] my-3 flex mx-auto rounded-xl" onClick={() => navigate('/threads/add')}>ガンプラ投稿{plusIcon}</button>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
                     {loading && <div>読み込み...</div>}
                     {gunplas.length > 0 &&

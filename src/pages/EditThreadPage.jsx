@@ -6,6 +6,7 @@ import { editGunplaById, gunplaById } from "../redux/features/gunpla/gunplaSlice
 import UploadWidget from "../components/UploadWidget";
 import JoditEditor from "jodit-react";
 import { useRef } from "react";
+import { useMemo } from "react";
 
 export default function EditThread() {
     const { gunpla } = useSelector((state) => state.gunpla);
@@ -19,6 +20,10 @@ export default function EditThread() {
     const navigate = useNavigate();
     const { id } = useParams();
     const editor = useRef(null);
+    const config = useMemo(() => ({
+        readonly: false,
+        placeholder: 'ここに感想やキャプションを書いてください'
+    }), []);
     const successMessage = () =>
         Swal.fire({
             position: "top-end",
@@ -181,10 +186,11 @@ export default function EditThread() {
                                 感想文・説明文
                             </label>
                             <JoditEditor
-                            ref={editor}
-                            value={longDesc}
-                            onChange={(newContent) => setLongDesc(newContent)}
-                            className="text-black"
+                                ref={editor}
+                                value={longDesc}
+                                config={config}
+                                onBlur={(newContent) => setLongDesc(newContent)}
+                                className="text-black"
                             />
                         </div>
                     </div>

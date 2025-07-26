@@ -6,6 +6,7 @@ import { addGunpla } from "../redux/features/gunpla/gunplaSlice";
 import UploadWidget from "../components/UploadWidget";
 import JoditEditor from "jodit-react";
 import { useRef } from "react";
+import { useMemo } from "react";
 
 export default function AddThreadPage() {
     const [name, setName] = useState("");
@@ -33,6 +34,10 @@ export default function AddThreadPage() {
             footer: '<a href="#">Why do I have this issue?</a>'
         });
     const editor = useRef(null);
+    const config = useMemo(()=> ({
+        readonly:false,
+        placeholder:'ここに感想やキャプションを書いてください'
+    }),[]);
     async function handleSubmit(e) {
         e.preventDefault();
         try {
@@ -134,7 +139,6 @@ export default function AddThreadPage() {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="簡単な紹介文をお書き下さい"
                                 required=""
-                                disabled
                                 value={shortDesc}
                                 onChange={(e) => setShortDesc(e.target.value)}
                             />
@@ -174,7 +178,8 @@ export default function AddThreadPage() {
                             <JoditEditor
                             ref={editor}
                             value={longDesc}
-                            onChange={(newContent) => setLongDesc(newContent)}
+                            config={config}
+                            onBlur={(newContent) => setLongDesc(newContent)}
                             className="text-black"
                             />
                         </div>

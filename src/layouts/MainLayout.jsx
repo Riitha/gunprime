@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from "react-router";
 import { useContext, useEffect } from "react";
 import HeroMain from "../components/Hero";
 import { AuthContext } from "../context/AuthContext";
+import { NavbarMain } from "../components/Navbar";
 
 
 export default function MainLayout() {
@@ -16,7 +17,7 @@ export default function MainLayout() {
 
     return (
         <>
-            <h1>--- Main Layout ---</h1>
+            <NavbarMain/>
             <HeroMain/>
             <Outlet />
         </>

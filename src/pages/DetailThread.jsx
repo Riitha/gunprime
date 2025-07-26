@@ -27,7 +27,7 @@ export default function DetailThread() {
             text: "読み込み失！！",
         });
         return null;
-    } else if (!gunpla) {
+    } else if (!gunpla && !loading) {
         Swal.fire({
             icon: "error",
             title: "エラー発生",
