@@ -42,7 +42,7 @@ export default function HomePage() {
                         
                         <div key={g.id} className="w-full min-h-[600px] rounded-xl bg-gradient-to-br from-Heliotrope to-flower-blue text-white p-2 flex flex-col justify-between">
                             <Link to={`/threads/detail/${g.id}`}>
-                            <img src={g.imageUrl} alt={g.name} className="w-full h-auto lg:h-auto lg:w-auto object-cover rounded-md" />
+                            <img src={g.imageUrl} alt={g.name} className="w-full h-[500px] object-cover rounded-md" />
                             </Link> 
                             <div className="flex-1 flex flex-col space-y-2 lg:space-y-1">
 
@@ -54,7 +54,7 @@ export default function HomePage() {
                                 </div>
 
                                 <div className="flex flex-col justify-between flex-1">
-                                    <p className="text-md lg:text-xs line-clamp-3 overflow-hidden mt-1 min-h-[72px]">
+                                    <p className="text-sm lg:text-md line-clamp-3 overflow-hidden mt-1 min-h-[72px]">
                                         {g.shortDesc}
                                     </p>
                                    

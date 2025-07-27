@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useEffect } from "react";
-import { gunplaById } from "../redux/features/gunpla/gunplaSlice";
+import { clearError, gunplaById } from "../redux/features/gunpla/gunplaSlice";
 import parse from "html-react-parser";
 import Swal from 'sweetalert2'
 import { Link } from "react-router";
@@ -14,45 +14,46 @@ export default function DetailThread() {
 
     useEffect(() => {
         if (id) {
+            dispatch(clearError());
             dispatch(gunplaById(id));
         }
     }, [dispatch, id])
 
+    useEffect(() => {
+        if (!loading && error) {
+            Swal.fire({
+                icon: "error",
+                title: "エラー発生",
+                text: "読み込み失！！",
+            });
+        }
+    }, [loading, error])
+
     if (loading) {
         return <span className="loading loading-ring loading-md"></span>
-    } else if (error) {
-        Swal.fire({
-            icon: "error",
-            title: "エラー発生",
-            text: "読み込み失！！",
-        });
-        return null;
-    } else if (!gunpla && !loading) {
-        Swal.fire({
-            icon: "error",
-            title: "エラー発生",
-            text: "ご要望なデータが見つかりません",
-        });
-        return null;
+    }
+    if (!gunpla && !loading && !error) {
+        return (
+            <p className="text-white text-center mt-10">
+                ご要望なデータが見つかりません
+            </p>
+        );
     }
 
     return (
         <>
-            <div className="bg-cello w-[100%] md:w-[90%] lg:w-[80%] h-screen mx-auto my-4 flex flex-col items-center justify-start p-6 text-white rounded-xl">
+            <div className="bg-cello w-[100%] md:w-[90%] lg:w-[80%] h-full mx-auto my-4 flex flex-col items-center justify-start p-6 text-white rounded-xl">
                 <div className="flex flex-row gap-1">
-                    <span className="text-4xl md:text-2xl lg:text-xl">{gunpla.grade}</span>
-                    <span className="text-4xl md:text-2xl lg:text-xl">{gunpla.scale}</span>
-                    <h1 className="text-4xl md:text-2xl lg:text-xl font-bold mb-4">{gunpla.name}</h1>
+                    <span className="text-sm md:text-2xl lg:text-4xl">{gunpla.grade}</span>
+                    <span className="text-sm md:text-2xl lg:text-4xl">{gunpla.scale}</span>
+                    <h1 className="text-sm md:text-2xl lg:text-4xl font-bold mb-4 ml-2">{gunpla.name}</h1>
                 </div>
 
-
-                <div className="bg-sky-300 rounded-2xl overflow-hidden w-[90%] md:w-[80%] lg:w-[70%] h-auto mb-6">
                     <img
                         src={gunpla.imageUrl}
-                        alt="hai"
-                        className="w-auto h-auto bg-cover"
+                        alt={gunpla.name}
+                        className="w-auto h-auto max-h-[90vh] mx-auto rounded-xl mb-4"
                     />
-                </div>
 
                 <div className=" w-[90%] md:w-[80%] lg:w-[70%] text-left">
                     <h2 className="text-xl md:text-md lg:text-sm font-bold mb-2">感想文・説明文</h2>

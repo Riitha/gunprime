@@ -35,6 +35,7 @@ export function NavbarMain() {
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                             <li><a href="/">Homepage</a></li>
+                            <li><a href="/about">About Me</a></li>
                         </ul>
                     </div>
                 </div>

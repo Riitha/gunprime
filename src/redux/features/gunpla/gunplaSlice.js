@@ -26,6 +26,9 @@ const gunplaSlice = createSlice({
         setError: (state, action) => {
             state.error = action.payload;
         },
+        clearError: (state) => {
+            state.error = null;
+        }
     },
 });
 
@@ -34,6 +37,7 @@ export const {
     setGunpla,
     setLoading,
     setError,
+    clearError,
 } = gunplaSlice.actions;
 
 export const fetchGunpla = () => async (dispatch) => {
@@ -60,15 +64,21 @@ export const gunplaById = (idGunpla) => async (dispatch) => {
         const docRef = doc(db, 'gunpla', idGunpla);
         const docSnap = await getDoc(docRef);
 
-        const item = {
-            name: docSnap.data().name,
-            grade: docSnap.data().grade,
-            scale: docSnap.data().scale,
-            imageUrl: docSnap.data().imageUrl,
-            shortDesc: docSnap.data().shortDesc,
-            longDesc: docSnap.data().longDesc,
-        };
-        dispatch(setGunpla(item));
+        if (docSnap.exists()) {
+            const item = {
+                name: docSnap.data().name,
+                grade: docSnap.data().grade,
+                scale: docSnap.data().scale,
+                imageUrl: docSnap.data().imageUrl,
+                shortDesc: docSnap.data().shortDesc,
+                longDesc: docSnap.data().longDesc,
+            };
+            dispatch(setGunpla(item));
+            dispatch(setError(null));
+        } else {
+            dispatch(setGunpla(null));
+            dispatch(setError("404"))
+        }
     } catch (error) {
         dispatch(setError(error))
     } finally {

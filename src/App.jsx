@@ -14,6 +14,8 @@ import EditThread from "./pages/EditThreadPage";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import DetailThread from "./pages/DetailThread";
+import AboutMe from "./pages/About";
+
 
 //router
 const router = createBrowserRouter([
@@ -30,12 +32,16 @@ const router = createBrowserRouter([
         element: <AddThreadPage />
       },
       {
-        path:"threads/edit/:id",
-        element: <EditThread/>
+        path: "threads/edit/:id",
+        element: <EditThread />
       },
-            {
-        path:"/threads/detail/:id",
-        element:<DetailThread/> 
+      {
+        path: "/threads/detail/:id",
+        element: <DetailThread />
+      },
+      {
+        path: "about",
+        element: <AboutMe/>
       }
     ]
   },
@@ -61,7 +67,7 @@ function App() {
   return (
     <AuthContextProvider>
       <Provider store={store}>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </Provider>
     </AuthContextProvider>
 
