@@ -10,7 +10,7 @@ export default function HeroMain() {
 
                             <br />
 
-                            <span className="block mt-2 text-shadow-xs text-shadow-black text-desert-storm">ガンプラと未来を築こう</span>
+                            <span className="block mt-2 text-shadow-xs text-shadow-black text-desert-storm">ガンプラと思い出を築こう</span>
                         </h1>
                     </div>
                 </div>
