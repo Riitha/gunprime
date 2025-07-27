@@ -36,6 +36,7 @@ export default function AddThreadPage() {
     const editor = useRef(null);
     const config = useMemo(()=> ({
         readonly:false,
+        theme: 'dark',
         placeholder:'ここに感想やキャプションを書いてください'
     }),[]);
     async function handleSubmit(e) {
@@ -58,9 +59,9 @@ export default function AddThreadPage() {
     }
 
     return (
-        <section className="bg-white dark:bg-gray-900">
+        <section>
             <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-                <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                <h2 className="mb-4 text-xl font-bold text-white">
                     ガンプラを投稿
                 </h2>
                 <form onSubmit={handleSubmit} action="">
@@ -180,7 +181,6 @@ export default function AddThreadPage() {
                             value={longDesc}
                             config={config}
                             onBlur={(newContent) => setLongDesc(newContent)}
-                            className="text-black"
                             />
                         </div>
                     </div>
@@ -188,7 +188,7 @@ export default function AddThreadPage() {
                     <div className="flex items-center gap-2 my-4">
                     <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="btn btn-accent"
                     >
                         確認
                     </button>

@@ -93,7 +93,7 @@ export const addGunpla = (gunpla) => async (dispatch) => {
             name: gunpla.name,
             grade: gunpla.grade,
             imageUrl: gunpla.imgUrl,
-            scales: gunpla.scale,
+            scale: gunpla.scale,
             shortDesc: gunpla.shortDesc,
             longDesc: gunpla.longDesc
         });
